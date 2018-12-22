@@ -1,0 +1,58 @@
+<div class="body">
+    <hr>
+    <div class="row justify-content-center">
+        <label class="search-label" for="search-box">Buscar Pokemon</label>
+        <input #searchBox id="search-box" [(ngModel)]="searchText" (keyup)="search(searchBox.value)" />     
+    </div>
+  
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 col-xl-3" *ngFor="let pokemon of pokemons">
+                <div class="container">
+                    <div class="row pokerow">
+                        <div class="col-6 col-md-12 col-xl-12">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png" />
+                        </div>
+                        <div class="id col-6 col-md-12 col-xl-12">
+                            <div>#{{pokemon.id}}</div>
+                            <div>{{pokemon.name}}</div>
+                        </div>
+                        <div class="col-12">
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- pager -->
+    <div class="container">
+        <hr>
+        <div class="row justify-content-center">
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination"> 
+                <li [ngClass]="{disabled: isFirstPage(), enabled: !isFirstPage()}">
+                    <a (click)="setPage(1)"> Primero </a>
+                </li>
+                <li [ngClass]="{disabled: isFirstPage(), enabled: !isFirstPage()}">
+                    <a (click)="setPage(pager.currentPage - 1)"> Anterior </a>
+                </li>
+                <li *ngFor="let page of pager.pages" 
+                    [ngClass]="{active: isActive(page), enabled: !isActive(page)}">
+                    
+                    <a (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled: isLastPage(), enabled: !isLastPage()}">
+                    <a (click)="setPage(pager.currentPage + 1)"> Siguiente </a>
+                </li>
+                <li [ngClass]="{disabled: isLastPage(), enabled: !isLastPage()}">
+                    <a (click)="setPage(pager.totalPages)"> Ultimo </a>
+                </li>
+            </ul>
+        </div>
+        <hr>
+    </div>
+</div>
+  
